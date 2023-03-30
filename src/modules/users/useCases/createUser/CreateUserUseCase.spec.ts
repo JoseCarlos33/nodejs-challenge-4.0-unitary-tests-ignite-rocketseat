@@ -2,17 +2,17 @@ import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUs
 import { CreateUserUseCase } from "./CreateUserUseCase";
 import { CreateUserError } from "./CreateUserError";
 
-let createCarUseCase: CreateUserUseCase;
+let createUserUseCase: CreateUserUseCase;
 let usersRepositoryInMemory: InMemoryUsersRepository;
 
 describe("Create User", () => {
   beforeEach(() => {
     usersRepositoryInMemory = new InMemoryUsersRepository();
-    createCarUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
   });
 
   it("should be able to create a new user", async () => {
-    const user = await createCarUseCase.execute({
+    const user = await createUserUseCase.execute({
       email: 'josecarlosnoronha33@gmail.com',
       name: 'José Carlos de Lima Noronha Filho',
       password: '123123',
@@ -22,14 +22,14 @@ describe("Create User", () => {
   });
 
   it("should not be able to create a user already existed", async () => {
-    await createCarUseCase.execute({
+    await createUserUseCase.execute({
       email: 'josecarlosnoronha33@gmail.com',
       name: 'José Carlos de Lima Noronha Filho',
       password: '123123',
     });
 
     await expect(
-      createCarUseCase.execute({
+      createUserUseCase.execute({
         email: 'josecarlosnoronha33@gmail.com',
         name: 'José Carlos de Lima Noronha Filho',
         password: '123123',
